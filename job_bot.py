@@ -31,7 +31,7 @@ CHANNEL = os.getenv("CHANNEL", "@indiajobupdates_official")
 ADZUNA_ID = os.getenv("ADZUNA_APP_ID", "")
 ADZUNA_KEY = os.getenv("ADZUNA_APP_KEY", "")
 DRY_RUN = os.getenv("DRY_RUN", "0") == "1"
-MAX_POSTS = int(os.getenv("MAX_POSTS", "8"))      # per run
+MAX_POSTS = int(os.getenv("MAX_POSTS", "10"))      # per run
 SEEN_FILE = Path("seen.json")
 SOURCES_FILE = Path("sources.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (JobUpdatesBot)"}
@@ -79,8 +79,8 @@ def fetch_adzuna(queries):
         try:
             r = requests.get(
                 "https://api.adzuna.com/v1/api/jobs/in/search/1",
-                params={"app_id": ADZUNA_ID, "app_key": ADZUNA_KEY, "results_per_page": 15,
-                        "what": q["what"], "where": q.get("where", ""), "max_days_old": 2,
+                params={"app_id": ADZUNA_ID, "app_key": ADZUNA_KEY, "results_per_page": 20,
+                        "what": q["what"], "where": q.get("where", ""), "max_days_old": 5,
                         "sort_by": "date", "content-type": "application/json"},
                 headers=HEADERS, timeout=20)
             r.raise_for_status()
