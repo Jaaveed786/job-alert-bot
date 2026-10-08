@@ -26,6 +26,7 @@ jobs:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
       - name: Save posted-jobs list
+        continue-on-error: true
         run: |
           git config user.name "jobbot"
           git config user.email "jobbot@users.noreply.github.com"
