@@ -140,7 +140,7 @@ def classify(job):
     return primary, tags
 
 
-def format_post(job, primary, tags):
+def format_post(job, primary, tags, affiliate_links=None):
     esc = lambda s: html.escape(s or "")
     lines = [f'{EMOJI[primary]} <b>{esc(job["title"])}</b>']
     if job["company"]:
@@ -148,10 +148,29 @@ def format_post(job, primary, tags):
     if job["location"]:
         lines.append(f'📍 {esc(job["location"])}')
     lines.append(f'🔗 <a href="{html.escape(job["link"], quote=True)}">Apply / Details</a>')
+
+    if affiliate_links:
+        if "it" in tags and affiliate_links.get("udemy"):
+            lines.append(f'💡 <b>Prep Tip:</b> <a href="{html.escape(affiliate_links["udemy"], quote=True)}">Top Placement &amp; Tech Prep Courses</a>')
+        elif affiliate_links.get("amazon_aptitude"):
+            lines.append(f'💡 <b>Prep Tip:</b> <a href="{html.escape(affiliate_links["amazon_aptitude"], quote=True)}">Best Aptitude &amp; Reasoning Prep Book</a>')
+
     names = {"govt": "#Govt", "walkin": "#WalkIn", "internship": "#Internship",
              "fresher": "#Fresher", "experienced": "#Experienced", "it": "#IT", "nonit": "#NonIT"}
     lines.append(" ".join(names[t] for t in names if t in tags))
     lines.append("⚠️ Never pay money for a job. Verify before applying.")
+    return "\n".join(lines)
+
+
+def format_deal(deal):
+    esc = lambda s: html.escape(s or "")
+    lines = [
+        f'📚 <b>{esc(deal["title"])}</b>',
+        f'💡 {esc(deal.get("text", ""))}',
+        f'🔗 <a href="{html.escape(deal["link"], quote=True)}">Check Details &amp; Access Here</a>',
+        deal.get("tag", "#PlacementPrep #Fresher"),
+        "⚠️ Verified learning & career preparation resource.",
+    ]
     return "\n".join(lines)
 
 
@@ -178,6 +197,8 @@ def main():
     src = load_json(SOURCES_FILE, {})
     seen = load_json(SEEN_FILE, [])
     seen_set = set(seen)
+    affiliate_links = src.get("affiliate_links", {})
+    deals = src.get("placement_deals", [])
 
     jobs = fetch_adzuna(src.get("adzuna_queries", [])) + fetch_rss(src.get("rss", []))
     fresh, batch_keys = [], set()
@@ -202,11 +223,25 @@ def main():
 
     posted = 0
     for k, primary, tags, j in order[:MAX_POSTS]:
-        if send(format_post(j, primary, tags)):
+        if send(format_post(j, primary, tags, affiliate_links)):
             seen.append(k)
             posted += 1
             SEEN_FILE.write_text(json.dumps(seen[-5000:]), encoding="utf-8")
             time.sleep(3)  # stay under Telegram rate limits
+
+    # Optionally post 1 placement prep deal if configured
+    if deals and posted > 0:
+        # Rotate deal based on hour/day
+        deal_idx = int(time.time() / 14400) % len(deals)
+        deal = deals[deal_idx]
+        deal_key = key_for(deal["link"] + "_" + str(int(time.time() / 86400)))
+        if deal_key not in seen_set:
+            time.sleep(3)
+            if send(format_deal(deal)):
+                seen.append(deal_key)
+                posted += 1
+                SEEN_FILE.write_text(json.dumps(seen[-5000:]), encoding="utf-8")
+
     print("Posted", posted)
 
 
