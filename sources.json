@@ -14,5 +14,31 @@
     {"name": "Govt jobs feed 1 (paste a verified official/RSS URL)", "url": "PASTE_FEED_URL", "hint": "govt", "enabled": false},
     {"name": "Google Alerts - walk-in drive", "url": "PASTE_GOOGLE_ALERTS_RSS_URL", "hint": "walkin", "enabled": false},
     {"name": "Google Alerts - govt recruitment notification", "url": "PASTE_GOOGLE_ALERTS_RSS_URL", "hint": "govt", "enabled": false}
+  ],
+  "affiliate_links": {
+    "udemy": "https://bitli.in/nu21TGp",
+    "coursera": "https://bitli.in/45RghoM",
+    "amazon_aptitude": "https://www.amazon.in/dp/9352534026?tag=20040d72-21",
+    "amazon_coding": "https://www.amazon.in/dp/0984782850?tag=20040d72-21"
+  },
+  "placement_deals": [
+    {
+      "title": "Top Tech & Placement Prep Courses on Udemy",
+      "text": "Master Python, Java, Full Stack Development, Data Analytics, and TCS/Infosys NQT Coding rounds with hands-on projects & certificates.",
+      "link": "https://bitli.in/nu21TGp",
+      "tag": "#Udemy #PlacementPrep #Coding"
+    },
+    {
+      "title": "Google & IBM Professional Career Certifications on Coursera",
+      "text": "Boost your resume with globally recognized industry certifications in Data Science, Cybersecurity, Cloud, and Software Engineering.",
+      "link": "https://bitli.in/45RghoM",
+      "tag": "#Coursera #Certificates #Fresher"
+    },
+    {
+      "title": "Must-Have Aptitude & Reasoning Prep Book (RS Aggarwal)",
+      "text": "The most recommended book for clearing Aptitude, Logical Reasoning, and Quant rounds for Campus Placements, Banking, SSC & Govt exams.",
+      "link": "https://www.amazon.in/dp/9352534026?tag=20040d72-21",
+      "tag": "#Aptitude #ExamPrep #Books"
+    }
   ]
 }
