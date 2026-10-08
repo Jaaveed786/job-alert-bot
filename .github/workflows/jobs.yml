@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -28,4 +30,4 @@ jobs:
           git config user.name "jobbot"
           git config user.email "jobbot@users.noreply.github.com"
           git add seen.json
-          git diff --cached --quiet || (git commit -m "update seen" && git push)
+          git diff --cached --quiet || (git commit -m "update seen" && git pull --rebase origin main && git push) || true
