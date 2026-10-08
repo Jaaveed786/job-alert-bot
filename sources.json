@@ -1,0 +1,18 @@
+{
+  "adzuna_queries": [
+    {"what": "fresher", "hint": "fresher"},
+    {"what": "walk-in", "hint": "walkin"},
+    {"what": "internship", "hint": "internship"},
+    {"what": "software developer", "where": "Bengaluru"},
+    {"what": "data analyst"},
+    {"what": "customer support"},
+    {"what": "sales executive"},
+    {"what": "accountant"},
+    {"what": "hr recruiter"}
+  ],
+  "rss": [
+    {"name": "Govt jobs feed 1 (paste a verified official/RSS URL)", "url": "PASTE_FEED_URL", "hint": "govt", "enabled": false},
+    {"name": "Google Alerts - walk-in drive", "url": "PASTE_GOOGLE_ALERTS_RSS_URL", "hint": "walkin", "enabled": false},
+    {"name": "Google Alerts - govt recruitment notification", "url": "PASTE_GOOGLE_ALERTS_RSS_URL", "hint": "govt", "enabled": false}
+  ]
+}
